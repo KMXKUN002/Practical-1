@@ -24,6 +24,20 @@ GPIO.output (led_list, 0)
 button_inputs = [11,13]
 GPIO.setup (button_inputs, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
+#Set up button functions
+def decrease_button():
+    if count == 0:
+        count = 7
+    else:
+        count -= 1
+    
+def increase_button():
+    if count == 7:
+        count = 0
+    else:
+        count +=1
+
+
 #Event detector and debouncing
 GPIO.add_event_detect (11, GPIO.RISING, callback = decrease_button, bouncetime = 200)
 GPIO.add_event_detect (13, GPIO.RISING, callback = increase_button, bouncetime = 200)
@@ -39,17 +53,6 @@ def main():
     GPIO.output (7, int(count_bit[2:3]))
     
 
-def decrease_button():
-    if count == 0:
-        count = 7
-    else:
-        count -= 1
-    
-def increase_button():
-    if count == 7:
-        count = 0
-    else:
-        count +=1
 
 # Only run the functions if 
 if __name__ == "__main__":
