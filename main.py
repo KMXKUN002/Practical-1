@@ -32,6 +32,11 @@ GPIO.add_event_detect (13, GPIO.RISING, callback = increase_button, bouncetime =
 
 # Logic that you write
 def main():
+    count_bit = bin(count)[2:].zfill(3)
+    
+    GPIO.output (3, int(count_bit[0:1]))
+    GPIO.output (5, int(count_bit[1:2]))
+    GPIO.output (7, int(count_bit[2:3]))
     
 
 def decrease_button():
