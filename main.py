@@ -25,13 +25,15 @@ button_inputs = [11,13]
 GPIO.setup (button_inputs, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
 #Set up button functions
-def decrease_button():
+def decrease_button(self):
+    global count
     if count == 0:
         count = 7
     else:
         count -= 1
     
-def increase_button():
+def increase_button(self):
+    global count
     if count == 7:
         count = 0
     else:
@@ -46,6 +48,8 @@ GPIO.add_event_detect (13, GPIO.RISING, callback = increase_button, bouncetime =
 
 # Logic that you write
 def main():
+    global count
+    
     count_bit = bin(count)[2:].zfill(3)
     
     GPIO.output (3, int(count_bit[0:1]))
@@ -63,7 +67,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("Exiting gracefully")
         # Turn off your GPIOs here
-        
         GPIO.cleanup()
     except Exception as e:
         GPIO.cleanup()
